@@ -9,7 +9,7 @@ as $$
 begin
 
 	if p_salary <= 0 then
-		raise exception 'çàðïëàòà íå ìîæåò áûòü ìåíüøå èëè ðàâíà 0!';
+		raise exception 'Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð° 0!';
 	end if;
 
 	insert into public.role(description, default_salary)
@@ -18,17 +18,18 @@ begin
 
 exception
 		when others then
-		raise notice 'Îøèáêà ïðè äîáàâëåíèè ðîëè: %', sqlerrm;
+		raise notice 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ Ñ€Ð¾Ð»Ð¸: %', sqlerrm;
 end;
 $$;
 
+
 /*
-Ïðè äîáàâëåíèè ðîëè - âîçðàùàåì àéäèøíèê äëÿ äàëüíåéøåé îáðàáîòêè â áýêå
+ÐŸÑ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ Ñ€Ð¾Ð»Ð¸ - Ð²Ð¾Ð·Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð°Ð¹Ð´Ð¸ÑˆÐ½Ð¸Ðº Ð´Ð»Ñ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐ¹ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð² Ð±ÑÐºÐµ
 
 DO $$ 
 DECLARE 
 l_id int8;
-l_description text = 'Áóõãàëòåð';
+l_description text = 'Ð‘ÑƒÑ…Ð³Ð°Ð»Ñ‚ÐµÑ€';
 l_salary int4 = 500000;
 BEGIN
 call public.add_role(l_description, l_salary, l_id);

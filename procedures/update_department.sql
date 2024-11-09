@@ -20,6 +20,7 @@ exception
 end;
 $$;
 
+
 /*
  Пример использования:
  call public.update_department(p_id := 3,  p_description := 'Отдел информационных технологий'); 

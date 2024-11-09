@@ -75,6 +75,7 @@ exception
 end;
 $$;
 
+
 /*
  Пример использования:
  call public.update_employee(p_id := 2, p_firstname:= 'Аристарх', p_surname:= 'Иванов', p_dob:= '01-11-1996'::date, p_dep_id:= 1, p_is_remote:= false, p_role_id:= 2, p_salary:=50);

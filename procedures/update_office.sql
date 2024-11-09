@@ -26,6 +26,7 @@ exception
 end;
 $$;
 
+
 /*
  Пример использования:
  call public.update_office(p_id := 8, p_capacity := 4);

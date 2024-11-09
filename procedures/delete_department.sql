@@ -18,6 +18,7 @@ exception
 end;
 $$;
 
+
 /*
  Пример использования:
  call public.delete_department(1);

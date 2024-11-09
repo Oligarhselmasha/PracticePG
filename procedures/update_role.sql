@@ -26,6 +26,7 @@ exception
 end;
 $$;
 
+
 /*
  Пример использования:
  call public.update_role(p_id := 1, p_salary := 4000000);

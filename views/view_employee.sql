@@ -1,16 +1,16 @@
 drop view if exists public.view_employee;
 
 create or replace view public.view_employee AS
-select e.surname as Фамилия
-	  ,e.firstname as Имя
-	  ,e.father_name as Отчество
-	  ,r.description  as Должность
-	  ,d.description  as Отдел
-	  ,o.description  as Офис
-	  ,e.dob as Дата_рождения
-	  ,e.is_remote as Удаленная_работа
-	  ,e.salary as Зарплата
-	  ,r.default_salary as Зарплата_по_умолчанию
+select e.surname as Р¤Р°РјРёР»РёСЏ
+	  ,e.firstname as РРјСЏ
+	  ,e.father_name as РћС‚С‡РµСЃС‚РІРѕ
+	  ,r.description  as Р”РѕР»Р¶РЅРѕСЃС‚СЊ
+	  ,d.description  as РћС‚РґРµР»
+	  ,o.description  as РћС„РёСЃ
+	  ,e.dob as Р”Р°С‚Р°_СЂРѕР¶РґРµРЅРёСЏ
+	  ,e.is_remote as РЈРґР°Р»РµРЅРЅР°СЏ_СЂР°Р±РѕС‚Р°
+	  ,e.salary as Р—Р°СЂРїР»Р°С‚Р°
+	  ,r.default_salary as Р—Р°СЂРїР»Р°С‚Р°_РїРѕ_СѓРјРѕР»С‡Р°РЅРёСЋ
 from public.employee e
 left join public.department d 
 	   on d.id = e.dep_id
@@ -18,6 +18,7 @@ left join public.office o
 	   on o.id = e.office_id
 left join public.role r
 	   on r.id = e.role_id;
+
 	   
 /*	  
 select *

@@ -20,23 +20,23 @@ declare l_salary decimal(10,2);
 begin
 	
 	if p_salary <= 0 then
-		raise exception 'çàðïëàòà íå ìîæåò áûòü ìåíüøå èëè ðàâíà 0!';
+		raise exception 'Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð° 0!';
 	end if;
 	
 	if not exists (select id from public.department where id = p_dep_id) then
-		raise exception 'id îòäåëà % îòñóñòâóåò â áàçå!', p_dep_id;
+		raise exception 'id Ð¾Ñ‚Ð´ÐµÐ»Ð° % Ð¾Ñ‚ÑÑƒÑÑ‚Ð²ÑƒÐµÑ‚ Ð² Ð±Ð°Ð·Ðµ!', p_dep_id;
 	end if;
 
 	if not exists (select id from public.role where id = p_role_id) then
-		raise exception 'id äîëæíîñòè % îòñóñòâóåò â áàçå!', p_role_id;
+		raise exception 'id Ð´Ð¾Ð»Ð¶Ð½Ð¾ÑÑ‚Ð¸ % Ð¾Ñ‚ÑÑƒÑÑ‚Ð²ÑƒÐµÑ‚ Ð² Ð±Ð°Ð·Ðµ!', p_role_id;
 	end if;
 
 	if p_office_id is not null and not exists (select id from public.office where id = p_office_id) then
-		raise exception 'id îôèñà % îòñóñòâóåò â áàçå!', p_office_id;
+		raise exception 'id Ð¾Ñ„Ð¸ÑÐ° % Ð¾Ñ‚ÑÑƒÑÑ‚Ð²ÑƒÐµÑ‚ Ð² Ð±Ð°Ð·Ðµ!', p_office_id;
 	end if;
 
 	if p_director_id is not null and not exists (select id from public.employee where id = p_director_id) then
-		raise exception 'id ñîòðóäíèêà(ðóêîâîäèòåëÿ) % îòñóñòâóåò â áàçå!', p_director_id;
+		raise exception 'id ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°(Ñ€ÑƒÐºÐ¾Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»Ñ) % Ð¾Ñ‚ÑÑƒÑÑ‚Ð²ÑƒÐµÑ‚ Ð² Ð±Ð°Ð·Ðµ!', p_director_id;
 	end if;
 
 	if p_salary is null then
@@ -56,7 +56,7 @@ begin
 		into l_current_capacity;
 
 		if (select capacity from public.office where id = p_office_id) <= l_current_capacity then
-			raise exception 'Ïðåâûøåíà âìåñòèìîñòü îôèñà % !', p_office_id;
+			raise exception 'ÐŸÑ€ÐµÐ²Ñ‹ÑˆÐµÐ½Ð° Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚ÑŒ Ð¾Ñ„Ð¸ÑÐ° % !', p_office_id;
 		end if;
 	end if;
 
@@ -67,19 +67,20 @@ begin
 exception
 		when others then
 		get stacked diagnostics l_context = pg_exception_context;
-		raise notice 'Îøèáêà ïðè äîáàâëåíèè ñîòðóäíèêà: % íà ýòàïå %', sqlerrm, l_context;
+		raise notice 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°: % Ð½Ð° ÑÑ‚Ð°Ð¿Ðµ %', sqlerrm, l_context;
 end;
 $$;
 
+
 /*
-Ïðè äîáàâëåíèè ñîòðóäíèêà - âîçðàùàåì àéäèøíèê äëÿ äàëüíåéøåé îáðàáîòêè â áýêå
+ÐŸÑ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ° - Ð²Ð¾Ð·Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð°Ð¹Ð´Ð¸ÑˆÐ½Ð¸Ðº Ð´Ð»Ñ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐ¹ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð² Ð±ÑÐºÐµ
 
 DO $$ 
 DECLARE 
 l_id int8;
 BEGIN
-call public.add_employee(p_firstname:= 'Èâàí', p_surname:= 'Èâàíîâ', p_dob:= '01-01-1991'::date, p_dep_id:= 1, p_is_remote:= false, p_role_id:= 2, p_id:= l_id);
-call public.add_employee(p_firstname:= 'Èâàí', p_surname:= 'Èâàíîâ', p_dob:= '01-01-1991'::date, p_dep_id:= 1, p_is_remote:= false, p_role_id:= 2, p_id:= l_id, p_office_id:=1);
+call public.add_employee(p_firstname:= 'Ð˜Ð²Ð°Ð½', p_surname:= 'Ð˜Ð²Ð°Ð½Ð¾Ð²', p_dob:= '01-01-1991'::date, p_dep_id:= 1, p_is_remote:= false, p_role_id:= 2, p_id:= l_id);
+call public.add_employee(p_firstname:= 'Ð˜Ð²Ð°Ð½', p_surname:= 'Ð˜Ð²Ð°Ð½Ð¾Ð²', p_dob:= '01-01-1991'::date, p_dep_id:= 1, p_is_remote:= false, p_role_id:= 2, p_id:= l_id, p_office_id:=1);
 
 RAISE NOTICE 'id: %', l_id;
 END $$;
